@@ -38,6 +38,31 @@ const Category = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        enabled: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        name : {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
+    },
+    {
+        slug: true
+    },
+);
+const Product = sequelize.define(
+    'Product',
+    {
+        enabled: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         slug: {
             type: DataTypes.STRING,
             allowNull: false
@@ -47,9 +72,24 @@ const Category = sequelize.define(
             allowNull: false,
             defaultValue: false
         },
+        stock: {
+            type: DataTypes.INTEGER,
+            allowNull: true, 
+            defaultValue: 0 
+        },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: true  
+        },
+        price: {
+            type: DataTypes.FLOAT,
+            allowNull: false 
+        },
+        price_with_discount: {
+            type: DataTypes.FLOAT,
+            allowNull: false 
     },
-    {
-        timestamps: true
+        
     },
 );
 
@@ -58,5 +98,6 @@ sequelize.sync();
 
 module.exports ={
     User,
-    Category
+    Category,
+    Product,
 }

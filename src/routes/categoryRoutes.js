@@ -1,6 +1,6 @@
 const app = require('./app-express.js')
 
-const { Category } = require('../models/Models.js');
+const { Category } = require('../models/models.js');
 
 app.get('/', (req, res) => {
     res.send('Olá, mundo')

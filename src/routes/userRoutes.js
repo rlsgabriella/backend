@@ -31,6 +31,6 @@ app.put('/v1/user/:id', (request, res) => {
 app.delete('/v1/user/:id', (request, res) => {
     console.log('request.url', request.url) // debug
     User.destroy({ where: { id: request.params.id } }).then((result) => {
-        res.send('deletei com sucesso essa quantidade de linhas: '+result)
+        res.send('deletei com sucesso essa quantidade de linhas: ' + result)
     })
 })

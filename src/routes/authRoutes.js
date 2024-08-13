@@ -1,4 +1,4 @@
-const app = require('./app-express.js')
+const app = require('./app-express.js');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/models.js');
 const { validarEmailSenha } = require('../util/validations.js');

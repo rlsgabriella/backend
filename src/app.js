@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const jwt = require('jsonwebtoken');
 
 require('./routes/authRoutes')
 require('./routes/userRoutes')
