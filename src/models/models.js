@@ -130,19 +130,52 @@ const ProductOption = sequelize.define(
     }
 })
 
+const ProductImage = sequelize.define(
+    'ProductImage',
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false,
+        },
+        product_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Products',
+                key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+        },
+        enabled: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
+        path: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+    });
 
-Product.hasMany(ProductOption, { foreignKey: 'product_id' });
-ProductOption.belongsTo(Product, { foreignKey: 'product_id' });
-
-Category.belongsToMany(Product, { through: 'ProdutoCategoria', foreignKey: 'product_id' });
-Product.belongsToMany(Category, { through: 'ProdutoCategoria', foreignKey: 'category_id' });
-
-// Sincronizar o modelo com o banco de dados    
+    Product.hasMany(ProductImage, { foreignKey: 'product_id' });
+    ProductImage.belongsTo(Product, { foreignKey: 'product_id' });
+    
+    Product.hasMany(ProductOption, { foreignKey: 'product_id' });
+    ProductOption.belongsTo(Product, { foreignKey: 'product_id' });
+    
+    Category.belongsToMany(Product, { through: 'ProdutoCategoria', foreignKey: 'category_id' });
+    Product.belongsToMany(Category, { through: 'ProdutoCategoria', foreignKey: 'product_id' });
+    
+ 
 sequelize.sync();
 
 module.exports = {
     User,
     Category,
     Product,
-    ProductOption
+    ProductOption,
+    ProductImage
 }

@@ -27,7 +27,6 @@ app.get('/v1/product/:id', (request, res) => {
         .then((result) => res.send(result))
 })
 
-
 app.get('/v1/product/', (request, res) => {
     console.log('request.url', request.url) // debug
 
