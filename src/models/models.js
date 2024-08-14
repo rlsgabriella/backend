@@ -27,8 +27,7 @@ const User = sequelize.define(
     },
     {
         timestamps: true
-    },
-);
+    });
 
 
 const Category = sequelize.define(
@@ -42,7 +41,7 @@ const Category = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        name : {
+        name: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
@@ -50,8 +49,8 @@ const Category = sequelize.define(
     },
     {
         slug: true
-    },
-);
+    });
+
 const Product = sequelize.define(
     'Product',
     {
@@ -74,32 +73,76 @@ const Product = sequelize.define(
         },
         stock: {
             type: DataTypes.INTEGER,
-            allowNull: true, 
-            defaultValue: 0 
+            allowNull: true,
+            defaultValue: 0
         },
         description: {
             type: DataTypes.STRING,
-            allowNull: true  
+            allowNull: true
         },
         price: {
             type: DataTypes.FLOAT,
-            allowNull: false 
+            allowNull: false
         },
         price_with_discount: {
             type: DataTypes.FLOAT,
-            allowNull: false 
+            allowNull: false
+        },
+    });
+
+const ProductOption = sequelize.define(
+    'ProductOption', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-        
+    product_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: Product, // Nome da tabela de produtos (ajuste conforme necessário)
+            key: 'id'
+        }
     },
-);
-Category.belongsToMany(Product, { through: 'ProdutoCategoria', foreignKey:'product_id' });
-Product.belongsToMany(Category, { through: 'ProdutoCategoria', foreignKey: 'category_id'});
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    shape: {
+        type: DataTypes.ENUM('square', 'circle'),
+        allowNull: true,
+        defaultValue: 'square'
+    },
+    radius: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 0
+    },
+    type: {
+        type: DataTypes.ENUM('text', 'color'),
+        allowNull: true,
+        defaultValue: 'text'
+    },
+    values: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
+
+
+Product.hasMany(ProductOption, { foreignKey: 'product_id' });
+ProductOption.belongsTo(Product, { foreignKey: 'product_id' });
+
+Category.belongsToMany(Product, { through: 'ProdutoCategoria', foreignKey: 'product_id' });
+Product.belongsToMany(Category, { through: 'ProdutoCategoria', foreignKey: 'category_id' });
 
 // Sincronizar o modelo com o banco de dados    
 sequelize.sync();
 
-module.exports ={
+module.exports = {
     User,
     Category,
     Product,
+    ProductOption
 }
