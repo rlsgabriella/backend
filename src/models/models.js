@@ -92,6 +92,8 @@ const Product = sequelize.define(
         
     },
 );
+Category.belongsToMany(Product, { through: 'ProdutoCategoria', foreignKey:'product_id' });
+Product.belongsToMany(Category, { through: 'ProdutoCategoria', foreignKey: 'category_id'});
 
 // Sincronizar o modelo com o banco de dados    
 sequelize.sync();
