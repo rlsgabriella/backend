@@ -1,5 +1,3 @@
-
-
 module.exports = {
-  uri: //meu banco 
+  uri: process.env.URI,
 }

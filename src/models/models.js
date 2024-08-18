@@ -7,7 +7,7 @@ const User = sequelize.define(
   "User",
   {
     // Model attributes are defined here
-    firstName: {
+    firstname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
